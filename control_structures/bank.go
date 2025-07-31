@@ -9,6 +9,8 @@ import (
 )
 
 func main() {
+	var accountBalance float64 = 1000.00
+
 	fmt.Println("Welcome to go Bank")
 	img, err := loadIamge("bank4.png")
 	if err != nil {
@@ -30,11 +32,17 @@ func main() {
 	fmt.Println("3. Withdraw")
 	fmt.Println("4. Exit")
 
-	var choice int 
+	var choice int
 	fmt.Print("Your choice: ")
 	fmt.Scan(&choice)
 
-	fmt,Println("Your choice is: ", choice)
+	// wantsCheckBalance := choice == 1
+
+	if choice == 1 {
+		fmt.Println("Your balance  is: ", accountBalance)
+	}
+
+	fmt.Println("Your choice is: ", choice)
 }
 
 func checkBalance(balance float64) {
