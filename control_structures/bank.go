@@ -1,20 +1,46 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"image"
 	"image/color"
 	"image/png"
 	"os"
+	"strconv"
 )
+
+const accountBalanceFile = "balance.txt"
+
+func getBalanceFromFile() (float64, error) {
+	data, err := os.ReadFile(accountBalanceFile)
+	if err != nil {
+		return 1000, errors.New("failed to read balance file: " + err.Error())
+	}
+
+	balanceText := string(data)
+	balance, err := strconv.ParseFloat(balanceText, 64)
+	if err != nil {
+		return 1000, errors.New("failed to parse balance: " + err.Error())
+	}
+
+	return balance, nil
+}
 
 func writeBalanceToFile(balance float64) {
 	balanceText := fmt.Sprint(balance)
-	os.WriteFile("balance.txt", []byte(balanceText), 0644)
+	os.WriteFile(accountBalanceFile, []byte(balanceText), 0644)
 }
 
 func main() {
-	var accountBalance float64 = 1000.00
+	var accountBalance, err = getBalanceFromFile()
+
+	if err != nil {
+		fmt.Println("Error")
+		fmt.Println(err)
+		fmt.Println("------------------------------")
+		panic("Can't continue sorry.")
+	}
 	fmt.Println("Welcome to go Bank")
 	img, err := loadImage("bank4.png")
 	if err != nil {
