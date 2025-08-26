@@ -12,35 +12,29 @@ import (
 
 const accountBalanceFile = "balance.txt"
 
-func getBalanceFromFile() (float64, error) {
-	data, err := os.ReadFile(accountBalanceFile)
+func getFloatFromFile(fileName string) (float64, error) {
+	data, err := os.ReadFile(fileName)
 	if err != nil {
 		return 1000, errors.New("failed to read balance file: " + err.Error())
 	}
 
-	balanceText := string(data)
-	balance, err := strconv.ParseFloat(balanceText, 64)
+	valueText := string(data)
+	value, err := strconv.ParseFloat(valueText, 64)
 	if err != nil {
 		return 1000, errors.New("failed to parse balance: " + err.Error())
 	}
 
-	return balance, nil
+	return value, nil
 }
 
-func writeBalanceToFile(balance float64) {
-	balanceText := fmt.Sprint(balance)
-	os.WriteFile(accountBalanceFile, []byte(balanceText), 0644)
+func writeFloatToFile(value float64, fileName string) {
+	valueText := fmt.Sprint(value)
+	os.WriteFile(fileName, []byte(valueText), 0644)
 }
 
 func main() {
-	var accountBalance, err = getBalanceFromFile()
+	var accountBalance, err = getFloatFromFile(accountBalanceFile)
 
-	if err != nil {
-		fmt.Println("Error")
-		fmt.Println(err)
-		fmt.Println("------------------------------")
-		panic("Can't continue sorry.")
-	}
 	fmt.Println("Welcome to go Bank")
 	img, err := loadImage("bank4.png")
 	if err != nil {
@@ -57,11 +51,7 @@ func main() {
 		fmt.Println()
 	}
 	for {
-		fmt.Println("What would you like to do?")
-		fmt.Println("1. Check Balance")
-		fmt.Println("2. Deposit")
-		fmt.Println("3. Withdraw")
-		fmt.Println("4. Exit")
+		presentOptions()
 
 		var choice int
 		fmt.Print("Your choice: ")
@@ -84,7 +74,7 @@ func main() {
 
 			accountBalance += depositAmount
 			fmt.Printf("Balance updated! New amount: %.2f\n", accountBalance)
-			writeBalanceToFile(accountBalance)
+			writeFloatToFile(accountBalance, accountBalanceFile)
 		case 3:
 			fmt.Println("Your withdraw")
 			var withdrawalAmount float64
@@ -103,7 +93,7 @@ func main() {
 			accountBalance -= withdrawalAmount
 
 			fmt.Println("Balance updated! New amount: ", accountBalance)
-			writeBalanceToFile(accountBalance)
+			writeFloatToFile(accountBalance, accountBalanceFile)
 
 		default:
 			fmt.Println("Exiting the bank. Goodbye!")
