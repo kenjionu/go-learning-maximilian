@@ -9,7 +9,9 @@ import "fmt"
 func main() {
 	age := 32 /// regular variable
 
-	agePointer := &age // pointer to the variable age
+	var agePointer *int
+
+	agePointer = &age // pointer to the variable age
 	fmt.Println("Age Pointer: ", agePointer)
 	fmt.Println("Age Pointer Value: ", *agePointer) // dereference the pointer to get the value
 
