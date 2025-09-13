@@ -15,7 +15,6 @@ const accountBalanceFile = "balance.txt"
 func main() {
 	var accountBalance, err = fileops.GetFloatFromFile(accountBalanceFile)
 
-	fmt.Println("Welcome to go Bank")
 	img, err := loadImage("bank4.png")
 	if err != nil {
 		panic((err))
