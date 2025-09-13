@@ -2,7 +2,21 @@ package main
 
 import (
 	"fmt"
+	"time"
 )
+
+//como definir un struct type = como hacer una estructura de datos
+//los structs son colecciones de campos
+//los structs son tipos de datos compuestos
+//los structs son tipos de datos personalizados
+//los structs son tipos de datos que pueden contener otros tipos de datos
+
+type user struct {
+	firstName string
+	lastName  string
+	birthdate string
+	createAt  time.Time
+}
 
 func main() {
 	firstName := getUserData("Please enter your first name: ")
