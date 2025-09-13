@@ -36,6 +36,13 @@ func main() {
 		fmt.Print("Your choice: ")
 		fmt.Scan(&choice)
 
+		// la razon que choice en scan lo puse como puntero es porque scan necesita la direccion de memoria
+		// para modificar el valor de choice
+		// si no le pongo el &choice scan no puede modificar el valor de choice
+		// porque scan recibe una copia del valor de choice y no la direccion de memoria
+		// por lo tanto cualquier cambio que se haga en scan no afectara al valor original de choice
+		// y cuando scan termine la copia se pierde y el valor original sigue siendo el mismo
+
 		// wantsCheckBalance := choice == 1
 
 		switch choice {
