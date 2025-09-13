@@ -15,10 +15,21 @@ func main() {
 	// fmt.Println("Age Pointer Value: ", *agePointer) // dereference the pointer to get the value
 
 	fmt.Println("Age: ", *agePointer)
-	adultYears := getAdultYears(agePointer)
-	fmt.Println(adultYears)
+	editAgeToAdultYears(agePointer)
+	//El valor inicial de age con el anterior metodo getAdultYears con el valor de 32
+	//A verificar el metodo te hace la resta de 18 y te da 14
+	//La diferencia grande es que todo esta en la variable inicial de la memoria de la variable age
+	//Esto es gracias a los punteros
+	//Si no se usaran punteros el valor de age seguiria siendo 32
+	//Porque la funcion getAdultYears recibe una copia del valor de age
+	//Y no el valor original
+	//Por lo tanto cualquier cambio que se haga en la funcion no afectara al valor original
+	//Ya que solo se esta trabajando con una copia del valor original
+	//Y cuando la funcion termina la copia se pierde y el valor original sigue siendo el mismo
+	//Ahora entendido esto le ponemos el nombre de la variable editAgeToAdultYears
+	fmt.Println(age)
 }
 
-func getAdultYears(age *int) int {
-	return *age - 18
+func editAgeToAdultYears(age *int) {
+	*age = *age - 18
 }
