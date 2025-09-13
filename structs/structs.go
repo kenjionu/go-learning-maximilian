@@ -11,6 +11,10 @@ func main() {
 
 	// ... do something awesome with that gathered data!
 
+	OutputUserDetails(lastName, firstName, birthdate)
+}
+
+func OutputUserDetails(firstName, lastName, birthdate string) {
 	fmt.Println(firstName, lastName, birthdate)
 }
 
