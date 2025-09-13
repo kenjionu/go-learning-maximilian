@@ -12,12 +12,11 @@ func main() {
 	var agePointer *int
 
 	agePointer = &age // pointer to the variable age
-	fmt.Println("Age Pointer: ", agePointer)
-	fmt.Println("Age Pointer Value: ", *agePointer) // dereference the pointer to get the value
+	// fmt.Println("Age Pointer Value: ", *agePointer) // dereference the pointer to get the value
 
-	fmt.Println("Age: ", age)
-	adultYears := getAdultYears(age)
-	fmt.Println(adultYears)
+	fmt.Println("Age: ", *agePointer)
+	//adultYears := getAdultYears(age)
+	//fmt.Println(adultYears)
 }
 
 func getAdultYears(age int) int {
