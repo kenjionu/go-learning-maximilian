@@ -15,10 +15,10 @@ func main() {
 	// fmt.Println("Age Pointer Value: ", *agePointer) // dereference the pointer to get the value
 
 	fmt.Println("Age: ", *agePointer)
-	//adultYears := getAdultYears(age)
-	//fmt.Println(adultYears)
+	adultYears := getAdultYears(agePointer)
+	fmt.Println(adultYears)
 }
 
-func getAdultYears(age int) int {
-	return age - 18
+func getAdultYears(age *int) int {
+	return *age - 18
 }
