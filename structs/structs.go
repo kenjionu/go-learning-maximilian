@@ -25,12 +25,13 @@ func main() {
 
 	//instance of a struct
 	var appUser user
-	
+
+	//pay attention to the order of the fields
 	appUser = user {
-		firstName: userFirstName,
-		lastName:  userLastName,
-		birthdate: userBirthdate,
-		createAt:  time.Now(),
+		userFirstName,
+		userLastName,
+		userBirthdate,
+		time.Now(),
 	}
 	fmt.Println(appUser)
 	fmt.Println("User created at: ", appUser.createAt)}
