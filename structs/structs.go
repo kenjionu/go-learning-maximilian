@@ -27,21 +27,21 @@ func main() {
 	var appUser user
 
 	//pay attention to the order of the fields
-	appUser = user {
+	appUser = user{
 		userFirstName,
 		userLastName,
 		userBirthdate,
 		time.Now(),
 	}
 	fmt.Println(appUser)
-	fmt.Println("User created at: ", appUser.createAt)}
+	fmt.Println("User created at: ", appUser.createAt)
 	// ... do something awesome with that gathered data!
 
-	OutputUserDetails(lastName, firstName, birthdate)
+	OutputUserDetails(appUser)
 }
 
-func OutputUserDetails(firstName, lastName, birthdate string) {
-	fmt.Println(firstName, lastName, birthdate)
+func OutputUserDetails(u user) {
+	fmt.Println(u.firstName, u.lastName, u.birthdate)
 }
 
 func getUserData(promptText string) string {
