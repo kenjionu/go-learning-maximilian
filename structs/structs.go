@@ -33,16 +33,34 @@ func (u user) OutputUserDetails() {
 	fmt.Println(u.firstName, u.lastName, u.birthdate)
 }
 
+// constructor function to create a new user
+// convention to start with "new" + struct name
+// returns a pointer to the struct
+// helps to avoid copying the struct
+// initializes the struct with the provided values
+// sets the createAt field to the current time
+func newUser(firstName, lastName, birthdate string) *user {
+	return &user{
+		firstName: firstName,
+		lastName:  lastName,
+		birthdate: birthdate,
+		createAt:  time.Now(),
+	}
+}
+
 func main() {
 	userFirstName := getUserData("Please enter your first name: ")
 	userLastName := getUserData("Please enter your last name: ")
 	userBirthdate := getUserData("Please enter your birthdate (MM/DD/YYYY): ")
 
 	//instance of a struct
-	var appUser user
+	var appUser *user
+
+	//using a constructor function to create a new user
+	appUser = newUser(userFirstName, userLastName, userBirthdate)
 
 	//pay attention to the order of the fields
-	appUser = user{
+	appUser = &user{
 		userFirstName,
 		userLastName,
 		userBirthdate,
