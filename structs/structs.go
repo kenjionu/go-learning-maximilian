@@ -33,14 +33,14 @@ func main() {
 		userBirthdate,
 		time.Now(),
 	}
-	fmt.Println(appUser)
-	fmt.Println("User created at: ", appUser.createAt)
 	// ... do something awesome with that gathered data!
 
-	OutputUserDetails(appUser)
+	//accesing struct fields with pointer
+	OutputUserDetails(&appUser)
 }
 
-func OutputUserDetails(u user) {
+// add pointer parameter to avoid copying the struct
+func OutputUserDetails(u *user) {
 	fmt.Println(u.firstName, u.lastName, u.birthdate)
 }
 
