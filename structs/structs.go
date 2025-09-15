@@ -18,6 +18,13 @@ type user struct {
 	createAt  time.Time
 }
 
+func (u *user) clearUserName() {
+	u.firstName = ""
+	u.lastName = ""
+	u.birthdate = ""
+	u.createAt = time.Time{}
+}
+
 // add pointer parameter to avoid copying the struct
 // method with a receiver of type user (pointer) with the struct user
 // el func (u user) es el receiver
@@ -50,6 +57,8 @@ func main() {
 	//OutputUserDetails(appUser)
 
 	//accesing struct fields with method
+	appUser.OutputUserDetails()
+	appUser.clearUserName()
 	appUser.OutputUserDetails()
 }
 
