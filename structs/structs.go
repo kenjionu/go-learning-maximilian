@@ -18,6 +18,14 @@ type user struct {
 	createAt  time.Time
 }
 
+// add pointer parameter to avoid copying the struct
+// method with a receiver of type user (pointer) with the struct user
+// el func (u user) es el receiver
+
+func (u user) OutputUserDetails() {
+	fmt.Println(u.firstName, u.lastName, u.birthdate)
+}
+
 func main() {
 	userFirstName := getUserData("Please enter your first name: ")
 	userLastName := getUserData("Please enter your last name: ")
@@ -36,12 +44,13 @@ func main() {
 	// ... do something awesome with that gathered data!
 
 	//accesing struct fields with pointer
-	OutputUserDetails(&appUser)
-}
+	//OutputUserDetails(&appUser)
 
-// add pointer parameter to avoid copying the struct
-func OutputUserDetails(u *user) {
-	fmt.Println(u.firstName, u.lastName, u.birthdate)
+	//accesing struct fields without pointer
+	//OutputUserDetails(appUser)
+
+	//accesing struct fields with method
+	appUser.OutputUserDetails()
 }
 
 func getUserData(promptText string) string {
