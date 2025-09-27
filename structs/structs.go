@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"time"
 )
@@ -39,13 +40,16 @@ func (u user) OutputUserDetails() {
 // helps to avoid copying the struct
 // initializes the struct with the provided values
 // sets the createAt field to the current time
-func newUser(firstName, lastName, birthdate string) *user {
+func newUser(firstName, lastName, birthdate string) (*user, error) {
+	if firstName == "" || lastName == "" || birthdate == "" {
+		return nil, errors.New("First name, last name and birthdate cannot be empty")
+	}
 	return &user{
 		firstName: firstName,
 		lastName:  lastName,
 		birthdate: birthdate,
 		createAt:  time.Now(),
-	}
+	}, nil
 }
 
 func main() {
@@ -57,7 +61,12 @@ func main() {
 	var appUser *user
 
 	//using a constructor function to create a new user
-	appUser = newUser(userFirstName, userLastName, userBirthdate)
+	appUser, err := newUser(userFirstName, userLastName, userBirthdate)
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 
 	//pay attention to the order of the fields
 	appUser = &user{
@@ -83,6 +92,6 @@ func main() {
 func getUserData(promptText string) string {
 	fmt.Print(promptText)
 	var value string
-	fmt.Scan(&value)
+	fmt.Scanln(&value)
 	return value
 }
