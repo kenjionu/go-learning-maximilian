@@ -12,14 +12,14 @@ import (
 //los structs son tipos de datos personalizados
 //los structs son tipos de datos que pueden contener otros tipos de datos
 
-type user struct {
-	FirstName string
+type User struct {
+	firstName string
 	lastName  string
 	birthdate string
 	createAt  time.Time
 }
 
-func (u *user) clearUserName() {
+func (u *User) ClearUserName() {
 	u.firstName = ""
 	u.lastName = ""
 	u.birthdate = ""
@@ -30,7 +30,7 @@ func (u *user) clearUserName() {
 // method with a receiver of type user (pointer) with the struct user
 // el func (u user) es el receiver
 
-func (u user) OutputUserDetails() {
+func (u *User) OutputUserDetails() {
 	fmt.Println(u.firstName, u.lastName, u.birthdate)
 }
 
@@ -40,11 +40,11 @@ func (u user) OutputUserDetails() {
 // helps to avoid copying the struct
 // initializes the struct with the provided values
 // sets the createAt field to the current time
-func newUser(firstName, lastName, birthdate string) (*user, error) {
+func New(firstName, lastName, birthdate string) (*User, error) {
 	if firstName == "" || lastName == "" || birthdate == "" {
-		return nil, errors.New("First name, last name and birthdate cannot be empty")
+		return nil, errors.New("first name, last name and birthdate cannot be empty")
 	}
-	return &user{
+	return &User{
 		firstName: firstName,
 		lastName:  lastName,
 		birthdate: birthdate,

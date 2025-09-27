@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"os/user"
-	"time"
+
+	"example.com/structs/user"
 )
 
 func main() {
@@ -15,22 +15,13 @@ func main() {
 	var appUser *user.User
 
 	//using a constructor function to create a new user
-	appUser, err := &user.User{
-		FirstName: "Max",
-	}
+	appUser, err := user.New(userFirstName, userLastName, userBirthdate)
 
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	//pay attention to the order of the fields
-	appUser = &user{
-		userFirstName,
-		userLastName,
-		userBirthdate,
-		time.Now(),
-	}
 	// ... do something awesome with that gathered data!
 
 	//accesing struct fields with pointer
@@ -41,7 +32,7 @@ func main() {
 
 	//accesing struct fields with method
 	appUser.OutputUserDetails()
-	appUser.clearUserName()
+	appUser.ClearUserName()
 	appUser.OutputUserDetails()
 }
 
