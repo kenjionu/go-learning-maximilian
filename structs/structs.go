@@ -22,6 +22,12 @@ func main() {
 		return
 	}
 
+	admin := user.NewAdmin("test@example.com", "supersecret")
+
+	admin.User.OutputUserDetails()
+	admin.User.ClearUserName()
+	admin.User.OutputUserDetails()
+
 	// ... do something awesome with that gathered data!
 
 	//accesing struct fields with pointer
