@@ -10,6 +10,10 @@ import (
 	"example.com/note/todo"
 )
 
+type saver interface {
+	Save() error
+}
+
 func main() {
 	title, content := getNoteData()
 	todoText := getUserInput("Todo text: ")
@@ -46,6 +50,12 @@ func main() {
 	fmt.Println("saving the note succeded")
 
 	userNote.Display()
+
+}
+
+func saveData(data note.Note) {
+	// convert the struct to json
+	// save the json to a file
 
 }
 
