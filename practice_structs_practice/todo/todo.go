@@ -27,7 +27,7 @@ func (todo Todo) Display() {
 	fmt.Println(todo.Text)
 }
 
-func New(title, content string) (Todo, error) {
+func New(content string) (Todo, error) {
 	if content == "" {
 		return Todo{}, errors.New("invalid input")
 	}
