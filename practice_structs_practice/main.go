@@ -14,6 +14,20 @@ type saver interface {
 	Save() error
 }
 
+type displayer interface {
+	Display()
+}
+
+type outputtable interface {
+	saver
+	Display()
+}
+
+// type outputtable interface {
+// 	Save() error
+// 	Display()
+// }
+
 func main() {
 	title, content := getNoteData()
 	todoText := getUserInput("Todo text: ")
@@ -32,30 +46,31 @@ func main() {
 		return
 	}
 
-	todo.Display()
-	err = todo.Save()
+	err = outputData(todo)
 
 	if err != nil {
-		fmt.Println("saving the todo failed")
 		return
 	}
 
-	err = userNote.Save()
-
-	if err != nil {
-		fmt.Println("saving the note failed")
-		return
-	}
-
-	fmt.Println("saving the note succeded")
-
-	userNote.Display()
+	outputData(userNote)
 
 }
 
-func saveData(data note.Note) {
-	// convert the struct to json
-	// save the json to a file
+func outputData(data outputtable) error {
+	data.Display()
+	return saveData(data)
+}
+
+func saveData(data saver) error {
+	err := data.Save()
+
+	if err != nil {
+		fmt.Println("Saving the note failed")
+		return err
+	}
+
+	fmt.Println("Saving the note succeeded")
+	return nil
 
 }
 
