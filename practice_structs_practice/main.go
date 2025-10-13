@@ -61,16 +61,35 @@ func main() {
 }
 
 func printSomething(value interface{}) {
-	switch value.(type) {
-	case int:
-		fmt.Println("This is an integer")
-	case float64:
-		fmt.Println("This is a float")
-	case string:
-		fmt.Println("This is a string")
-	default:
-		fmt.Println("Unknown type")
+	intVal, ok := value.(int)
+
+	if ok {
+		fmt.Println("This is an integer", intVal)
+		return
 	}
+
+	floatVal, ok := value.(float64)
+
+	if ok {
+		fmt.Println("This is a float", floatVal)
+	}
+
+	stringVal, ok := value.(float64)
+
+	if ok {
+		fmt.Println("This is a float", stringVal)
+	}
+
+	// switch value.(type) {
+	// case int:
+	// 	fmt.Println("This is an integer")
+	// case float64:
+	// 	fmt.Println("This is a float")
+	// case string:
+	// 	fmt.Println("This is a string")
+	// default:
+	// 	fmt.Println("Unknown type")
+	// }
 	fmt.Println((value))
 }
 
