@@ -2,6 +2,8 @@ package main
 
 import "fmt"
 
+//difference strcts and maps is that maps store key-value pairs
+
 func main() {
 	websites := map[string]string{
 		"Google":              "https://google.com",
