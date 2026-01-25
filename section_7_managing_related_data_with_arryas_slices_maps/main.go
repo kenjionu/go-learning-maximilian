@@ -29,4 +29,12 @@ func main() {
 	delete(courseRatings, "angular")
 
 	fmt.Println(courseRatings)
+	/// ....
+	for index, value := range userNames {
+		fmt.Printf("Index: %d, Value: %s\n", index, value)
+	}
+
+	for key, value := range courseRatings {
+		fmt.Printf("Key: %s, Value: %.2f\n", key, value)
+	}
 }
