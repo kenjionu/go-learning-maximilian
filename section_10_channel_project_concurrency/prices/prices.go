@@ -35,6 +35,8 @@ func (job *taxIncludedPriceJob) LoadData() error {
 func (job *taxIncludedPriceJob) Process(doneChan chan bool, errorChan chan error) {
 	err := job.LoadData()
 
+	// errorChan <- errors.New("An error")
+
 	if err != nil {
 		errorChan <- err
 		return
