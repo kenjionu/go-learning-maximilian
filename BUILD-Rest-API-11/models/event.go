@@ -15,5 +15,5 @@ var events = []Event{}
 
 func (e Event) save() {
 	// laterÑ ad it to a database
-	events = append(events)
+	events = append(events, e)
 }
