@@ -1,4 +1,4 @@
-module BUILD-Rest-API-11
+module example.com/BUILD-Rest-API-11
 
 go 1.25.6
 
