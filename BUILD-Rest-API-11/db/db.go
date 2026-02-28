@@ -3,16 +3,14 @@ package db
 import (
 	"database/sql"
 
-	"example.com/BUILD-Rest-API-11/db"
 	_ "github.com/mattn/go-sqlite3"
 )
 
 var DB *sql.DB
 
-func InitDB() (*sql.DB, error) {
-	db.InitDB()
+func InitDB() {
 	// later, connect to a real database
-	DB, err := sql.Open("splite3", "api.db")
+	DB, err := sql.Open("sqlite3", "api.db")
 
 	if err != nil {
 		panic("Could not connect to database.")
@@ -20,6 +18,8 @@ func InitDB() (*sql.DB, error) {
 
 	DB.SetMaxOpenConns(10)
 	DB.SetMaxIdleConns(5)
+
+	createTables()
 }
 
 func createTables() {
