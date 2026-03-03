@@ -10,22 +10,26 @@ import (
 
 func main() {
 	db.InitDB()
-
 	server := gin.Default()
-	server.GET("/events", getEvents)
+
+	server.GET("/events", getEvents) // GET, POST, PUT, PATCH, DELETE
 	server.POST("/events", createEvent)
 
-	server.Run(":8080") // listens on 0.0.0.0:8080 by default
+	server.Run(":8080") // localhost:8080
 }
 
-func getEvents(Context *gin.Context) {
-	events := models.GetAllEvents()
-	Context.JSON(http.StatusOK, events)
+func getEvents(context *gin.Context) {
+	events, err := models.GetAllEvents()
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"message": "Could not fetch events. Try again later."})
+		return
+	}
+	context.JSON(http.StatusOK, events)
 }
 
 func createEvent(context *gin.Context) {
 	var event models.Event
-	err := context.ShouldBindBodyWithJSON(&event)
+	err := context.ShouldBindJSON(&event)
 
 	if err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse request data."})
@@ -35,7 +39,12 @@ func createEvent(context *gin.Context) {
 	event.ID = 1
 	event.UserID = 1
 
-	event.Save()
+	err = event.Save()
+
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"message": "Could not create event. Try again later."})
+		return
+	}
 
 	context.JSON(http.StatusCreated, gin.H{"message": "Event created!", "event": event})
 }
