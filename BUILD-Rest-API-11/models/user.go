@@ -1,6 +1,10 @@
 package models
 
-import "example.com/BUILD-Rest-API-11/db"
+import (
+	"errors"
+
+	"example.com/BUILD-Rest-API-11/db"
+)
 import "example.com/BUILD-Rest-API-11/utils"
 
 type User struct {
@@ -38,14 +42,21 @@ func (u User) Save() error {
 }
 
 func (u User) ValidateCredentials() error {
-	query := "SELECT email, password FROM users WHERE email = ?"
+	query := "SELECT id, password FROM users WHERE email = ?"
 	row := db.DB.QueryRow(query, u.Email)
 
 	var retrievedPassword string
-	err := row.Scan(retrievedPassword)
+	err := row.Scan(&u.ID, &retrievedPassword)
 
 	if err != nil {
-		return err
+		return errors.New("Credentials invalid")
 	}
 
+	passwordIsValid := utils.CheckPassword(u.Password, retrievedPassword)
+
+	if !passwordIsValid {
+		return errors.New("Credentials invalid")
+	}
+
+	return nil
 }
