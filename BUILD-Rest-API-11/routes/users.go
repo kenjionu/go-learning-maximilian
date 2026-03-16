@@ -24,5 +24,15 @@ func signup(context *gin.Context) {
 		return
 	}
 
-	context.JSON(http.StatusCreated, gin.H{"message": "User created!", "user": user})
+	context.JSON(http.StatusCreated, gin.H{"message": "User created succesfully"})
+}
+
+func login(context *gin.Context) (string, error) {
+	var user models.User
+	err := context.ShouldBindJSON(&user)
+
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse request data."})
+		return
+	}
 }

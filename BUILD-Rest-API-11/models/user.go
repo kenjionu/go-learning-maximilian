@@ -1,6 +1,7 @@
 package models
 
 import "example.com/BUILD-Rest-API-11/db"
+import "example.com/BUILD-Rest-API-11/utils"
 
 type User struct {
 	ID       int64
@@ -18,7 +19,13 @@ func (u User) Save() error {
 
 	defer stmt.Close()
 
-	result, err := stmt.Exec(u.Email, u.Password)
+	hashedPwd, err := utils.HashPassword(u.Password)
+
+	if err != nil {
+		return err
+	}
+
+	result, err := stmt.Exec(u.Email, hashedPwd)
 
 	if err != nil {
 		return err
@@ -28,4 +35,17 @@ func (u User) Save() error {
 
 	u.ID = userId
 	return err
+}
+
+func (u User) ValidateCredentials() error {
+	query := "SELECT email, password FROM users WHERE email = ?"
+	row := db.DB.QueryRow(query, u.Email)
+
+	var retrievedPassword string
+	err := row.Scan(retrievedPassword)
+
+	if err != nil {
+		return err
+	}
+
 }
